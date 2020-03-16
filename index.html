@@ -4,9 +4,10 @@
 <head>
     <meta charset="UTF-8">
     <title>书籍目录检索</title>
+    <link rel="icon" href="{{ url_for('static',filename='img/favicon.ico') }}" sizes="32x32">
 </head>
 <body>
-<form action="http://localhost:5000/result" method="post">
+<form action="http://localhost:5000/book" method="post">
     标题：<input type="text" name="param">
     <input type="submit" value="查询">
 </form>

@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect, url_for
 import pymysql
 
 app = Flask(__name__)
@@ -7,10 +7,11 @@ book_dict = {'4k': '四库全书', 'x4k': "续修四库全书"}
 
 @app.route('/')
 def index():
-    return "阿娇，我爱你！！！"
+    # return "阿娇，我爱你！！！"
+    return render_template("love.html")
 
 
-@app.route('/result', methods=['POST', 'GET'])
+@app.route('/book', methods=['POST', 'GET'])
 def result():
     if request.method == 'POST':
         param = request.form.get("param")
@@ -20,7 +21,9 @@ def result():
             result = query(table, param)
             results.append((book_dict.get(table), result))
 
-        return render_template("result.html", books=results, param=param, table_names=table_names)
+        return render_template("book.html", books=results, param=param, table_names=table_names)
+    else:
+        return render_template("book.html", books="", param="", table_names=None)
 
 
 def query_table_name():
@@ -62,14 +65,3 @@ def query(table, title):
 
 if __name__ == '__main__':
     app.run()
-# print ("Content-type:text/html")
-# print ()
-# print ('<html>')
-# print ('<head>')
-# print ('<meta charset="gb2312">')
-# print ('<title>Hello Word - 我的第一个 CGI 程序！</title>')
-# print ('</head>')
-# print ('<body>')
-# print ('<h2>Hello Word! 我是来自菜鸟教程的第一CGI程序</h2>')
-# print ('</body>')
-# print ('</html>')

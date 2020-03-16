@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>书籍目录检索</title>
+    <link rel="icon" href="{{ url_for('static',filename='img/favicon.ico') }}" sizes="32x32">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/book.css') }}">
+</head>
+<body>
+<div id="topAnchor"></div>
+<form id="form" action="http://localhost:5000/book" method="post">
+    标题：<input type="text" name="param" value="{{ param }}">
+    <input type="submit" value="查询">
+</form>
+<br>
+{% if books %}
+    {% for book in books %}
+        <h2>书名：{{ book[0] }}</h2>
+        <table border="1px" width="100%" bgcolor="#7fffd4">
+            <tr bgcolor="silver">
+                <td>名称</td>
+                <td>分类</td>
+                <td>作者</td>
+                <td>册次</td>
+            </tr>
+            {% for col in book[1] %}
+                <tr>
+                    <td width="40%">{{ col[1] }}</td>
+                    <td width="10%">{{ col[2] }}</td>
+                    <td width="40%">{{ col[3] }}</td>
+                    <td width="10%">{{ col[4] }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+        <br>
+    {% endfor %}
+{% endif %}
+
+<a href="#topAnchor" style="position:fixed;right:0;bottom:0">回到顶部</a>
+</body>
+</html>
